@@ -1,20 +1,13 @@
-export type InfoDialog = {
-  title: string;
-  description: string;
-  types: string;
-  codeblock: string;
-};
-
 export type ConversionTools = {
   title: string;
-  value: string;
-  setValue: (values: string) => void;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  result: string;
-  setResult: (result: string) => void;
-  submit: boolean;
-  placeholder: string;
-  source: string;
-  info: InfoDialog;
+  methodName: string;
+  returnType: string;
 };
+
+export enum StringConversionMethods {
+  EMPTY_STRING = "",
+  NONE = "Select option",
+  ENCODE_BYTES32_STRING = "encodeBytes32String",
+  TO_UTF8_BYTES = "toUtf8Bytes",
+  CHAR_COUNT = "charCount",
+}

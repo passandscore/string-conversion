@@ -1,7 +1,6 @@
 import { Button, useToast } from "@chakra-ui/react";
-import { ConversionTools } from "src/types";
 
-export const CopyButton = ({ tool }: { tool: ConversionTools }) => {
+export const CopyButton = ({ result }: { result: string }) => {
   const toast = useToast();
 
   const copied = () => {
@@ -9,7 +8,7 @@ export const CopyButton = ({ tool }: { tool: ConversionTools }) => {
       title: "Copied",
       status: "success",
       isClosable: true,
-      position: "bottom",
+      position: "top",
     });
   };
 
@@ -17,7 +16,7 @@ export const CopyButton = ({ tool }: { tool: ConversionTools }) => {
     <Button
       size="xs"
       onClick={() => {
-        navigator.clipboard.writeText(tool.result);
+        navigator.clipboard.writeText(result);
         copied();
       }}
       color={"green.400"}

@@ -7,19 +7,20 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { ConversionTools } from "src/types";
+import { StringConversionMethods } from "src/types";
 
 const ButtonMenu = ({
-  tool,
-  handleInfoClick,
+  setInputValue,
+  setInputResult,
+  selectRef,
+  textAreaRef,
+  result,
 }: {
-  tool: ConversionTools;
-  handleInfoClick: (info: {
-    title: string;
-    description: string;
-    types: string;
-    codeblock: string;
-  }) => void;
+  setInputValue: (value: string) => void;
+  setInputResult: (value: string) => void;
+  selectRef: React.MutableRefObject<HTMLSelectElement | null>;
+  textAreaRef: React.MutableRefObject<HTMLTextAreaElement | null>;
+  result: string;
 }) => {
   const toast = useToast();
 
@@ -28,7 +29,7 @@ const ButtonMenu = ({
       title: "Copied",
       status: "success",
       isClosable: true,
-      position: "bottom",
+      position: "top",
     });
   };
 
@@ -40,27 +41,24 @@ const ButtonMenu = ({
       <MenuList>
         <MenuItem
           onClick={() => {
-            tool.setValue("");
-            tool.setResult("");
+            setInputValue("");
+            setInputResult("");
+            selectRef.current!.value = StringConversionMethods.NONE;
+            textAreaRef.current!.value = "";
           }}
         >
           Reset
         </MenuItem>
         <MenuItem
           onClick={() => {
-            navigator.clipboard.writeText(tool.result);
+            navigator.clipboard.writeText(result);
             copied();
           }}
         >
           Copy
         </MenuItem>
-        <MenuItem onClick={() => window.open(tool.source, "_blank")}>
-          Source
-        </MenuItem>
-        <MenuItem onClick={() => handleInfoClick(tool.info)}>Info</MenuItem>
       </MenuList>
     </Menu>
   );
 };
-
 export default ButtonMenu;
